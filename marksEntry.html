@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Student Information</title>
+  </head>
+  <body>
+    <h1>Student Information</h1>
+    <p>Enter the following details:</p>
+    <label for="name-input">Name:</label>
+    <input type="text" id="name-input" />
+    <br />
+    <label for="rollno-input">Roll Number:</label>
+    <input type="text" id="rollno-input" />
+    <br />
+    <label for="marks-input">Marks in Web Lab:</label>
+    <input type="number" id="marks-input" />
+    <br />
+    <button onclick="incrementMarks()">Increment Marks</button>
+    <button onclick="decrementMarks()">Decrement Marks</button>
+    <button onclick="displayDetails()">Display Details</button>
+
+    <script>
+      function studentDetails(name, rollNo, marks) {
+        return {
+          getName: function() {
+            return name;
+          },
+          getRollNo: function() {
+            return rollNo;
+          },
+          getMarks: function() {
+            return marks;
+          },
+          incrementMarks: function(amount) {
+            marks += amount;
+            return marks;
+          },
+          decrementMarks: function(amount) {
+            marks -= amount;
+            return marks;
+          }
+        };
+      }
+
+      let student;
+
+      function incrementMarks() {
+        const amount = parseInt(prompt("Enter amount to increment marks by:"));
+        const detailsDiv = document.createElement("div");
+        const updMarks = document.createElement("p");
+        updMarks.innerText = `Updated Marks after increment: ${student.incrementMarks(amount)}`;
+        detailsDiv.appendChild(updMarks);
+        document.body.appendChild(detailsDiv);
+      }
+
+      function decrementMarks() {
+        const amount = parseInt(prompt("Enter amount to decrement marks by:"));
+        const detailsDiv = document.createElement("div");
+        const updMarks = document.createElement("p");
+        updMarks.innerText = `Updated Marks after decrement: ${student.decrementMarks(amount)}`;
+        detailsDiv.appendChild(updMarks);
+        document.body.appendChild(detailsDiv);
+      }
+
+      function displayDetails() {
+        const nameInput = document.getElementById("name-input");
+        const rollNoInput = document.getElementById("rollno-input");
+        const marksInput = document.getElementById("marks-input");
+        student = studentDetails(nameInput.value, rollNoInput.value, marksInput.valueAsNumber);
+        const detailsDiv = document.createElement("div");
+        const nameParagraph = document.createElement("p");
+        nameParagraph.innerText = `Name: ${student.getName()}`;
+        const rollNoParagraph = document.createElement("p");
+        rollNoParagraph.innerText = `Roll Number: ${student.getRollNo()}`;
+        const marksParagraph = document.createElement("p");
+        marksParagraph.innerText = `Marks in Web Lab: ${student.getMarks()}`;
+        detailsDiv.appendChild(nameParagraph);
+        detailsDiv.appendChild(rollNoParagraph);
+        detailsDiv.appendChild(marksParagraph);
+        document.body.appendChild(detailsDiv);
+      }
+    </script>
+  </body>
+</html>
